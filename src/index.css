@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet CSS - Required for proper map rendering */
+@import 'leaflet/dist/leaflet.css';
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* EVTrack Energy Theme - Electric Blue & Green */
+    --background: 222 47% 11%;
+    --foreground: 180 100% 95%;
+
+    --card: 222 45% 15%;
+    --card-foreground: 180 100% 95%;
+
+    --popover: 222 45% 15%;
+    --popover-foreground: 180 100% 95%;
+
+    /* Electric Blue Primary */
+    --primary: 200 100% 50%;
+    --primary-foreground: 222 47% 11%;
+
+    /* Energy Green Secondary */
+    --secondary: 140 80% 45%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 222 40% 20%;
+    --muted-foreground: 180 20% 65%;
+
+    /* Electric Accent */
+    --accent: 180 100% 70%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 35% 25%;
+    --input: 222 35% 25%;
+    --ring: 200 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Energy Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(200 100% 50%), hsl(140 80% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(222 45% 15%), hsl(222 40% 20%));
+    --gradient-glow: radial-gradient(circle, hsl(200 100% 50% / 0.3), transparent);
+
+    /* Electric Shadows */
+    --shadow-electric: 0 0 20px hsl(200 100% 50% / 0.3);
+    --shadow-energy: 0 0 30px hsl(140 80% 45% / 0.2);
+
+    /* Sidebar Energy Theme */
+    --sidebar-background: 222 50% 8%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 200 100% 50%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 222 40% 18%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 222 35% 25%;
+    --sidebar-ring: 200 100% 50%;
+
+    /* Animations */
+    --transition-energy: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light {
+    /* Light mode energy theme */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 200 100% 45%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 140 60% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 180 100% 50%;
+    --accent-foreground: 222 47% 11%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 200 100% 45%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 200 100% 45%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 200 100% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    transition: var(--transition-energy);
+  }
+
+  /* Energy animations */
+  .energy-glow {
+    box-shadow: var(--shadow-electric);
+    transition: var(--transition-energy);
+  }
+
+  .energy-glow:hover {
+    box-shadow: var(--shadow-energy);
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+}
+
+@layer components {
+  /* Electric pulse animation */
+  .electric-pulse {
+    @apply relative;
+  }
+
+  .electric-pulse::before {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent);
+    animation: pulse-electric 2s infinite;
+  }
+
+  @keyframes pulse-electric {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  /* Energy flow animation */
+  .energy-flow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .energy-flow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.4), transparent);
+    animation: energy-sweep 3s infinite;
+  }
+
+  @keyframes energy-sweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+}
